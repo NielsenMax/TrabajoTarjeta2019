@@ -72,12 +72,7 @@ class Tarjeta implements TarjetaInterface
                 //Devuelve false si el monto ingresado no es válido
                 return false;
         }
-        try {
-            if((class_uses($this)['Plus'])){
-                $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
-            }
-        } 
-        catch(exception $e){}
+        $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
         // Devuelve true si el monto ingresado es válido
         return true;
     }
@@ -136,18 +131,13 @@ class Tarjeta implements TarjetaInterface
             return true; //Se finaliza la funcion
         }
 
-        try {
-            if((class_uses($this)['Plus'])){
-                if ($this->plus < 2) { //Si tiene plus disponibles
-                    $this->plus++; // Se le resta
-                    $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
-                    $this->UltimoColectivo = $linea;
-                    $this->UltimaHora = $this->tiempo->time(); //Se almacena la hora de la transaccion
-                    return true; // Se finaliza
-                }
-            }
-        } 
-        catch(exception $e){}
+        if ($this->plus < 2) { //Si tiene plus disponibles
+            $this->plus++; // Se le resta
+            $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
+            $this->UltimoColectivo = $linea;
+            $this->UltimaHora = $this->tiempo->time(); //Se almacena la hora de la transaccion
+            return true; // Se finaliza
+        }
 
         return false; // No fue posible pagar
     }
