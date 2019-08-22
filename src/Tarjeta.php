@@ -73,7 +73,7 @@ class Tarjeta implements TarjetaInterface
                 return false;
         }
         try {
-            if((class_uses('Plus').indexOf(searchStr)) > -1){
+            if((class_uses('Tarjeta').indexOf(searchStr)) > -1){
                 $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
             }
         } 
@@ -137,7 +137,7 @@ class Tarjeta implements TarjetaInterface
         }
 
         try {
-            if((class_uses('Plus').indexOf(searchStr)) > -1){
+            if((class_uses('Tarjeta').indexOf(searchStr)) > -1){
                 if ($this->plus < 2) { //Si tiene plus disponibles
                     $this->plus++; // Se le resta
                     $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
