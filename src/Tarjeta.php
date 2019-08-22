@@ -4,12 +4,13 @@ namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface
 {
+    use Plus;
 
     protected $saldo = 0;
 
     protected $ValorBoleto = 14.8;
 
-    protected $plus = 0;
+    // protected $plus = 0;
 
     protected $UltimoValorPagado = null;
 
@@ -17,7 +18,7 @@ class Tarjeta implements TarjetaInterface
 
     protected $UltimoColectivo;
 
-    protected $pagoplus = 0;
+    // protected $pagoplus = 0;
 
     protected $Ultimotrasbordo = 1;
 
@@ -71,7 +72,12 @@ class Tarjeta implements TarjetaInterface
                 //Devuelve false si el monto ingresado no es válido
                 return false;
         }
-        $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
+        try {
+            if((class_uses('Plus').indexOf(searchStr)) > -1){
+                $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
+            }
+        } 
+        catch(exception $e){}
         // Devuelve true si el monto ingresado es válido
         return true;
     }
@@ -79,26 +85,26 @@ class Tarjeta implements TarjetaInterface
     /**
      * Funcion para pagar plus en caso de deberlos.
      */
-    protected function pagarPlus()
-    {
-        if ($this->plus == 2) { //Si debe 2 plus
-            if ($this->saldo >= ($this->ValorBoleto * 2)) { //Y si le alcanza el saldo para pagarlos
-                $this->saldo -= ($this->ValorBoleto * 2); //Se le resta el valor
-                $this->plus = 0; //Se le devuelve los plus
-                $this->pagoplus = 2; //Se almacena que se pagaron 2 plus
-            } else if ($this->saldo >= $this->ValorBoleto) { // Si solo alcanza para 1 plus
-                $this->saldo -= $this->ValorBoleto; //se le descuenta
-                $this->plus = 1; // Se lo devuelve
-                $this->pagoplus = 1; // Se indica que se pago un plus
-            }
-        } else {
-            if ($this->plus == 1 && $this->saldo > $this->ValorBoleto) { //si debe 1 plus
-                $this->saldo -= $this->ValorBoleto; //Se le descuenta
-                $this->plus = 0; //Se le devuelve
-                $this->pagoplus = 1; // Se indica que se pago un plus
-            }
-        }
-    }
+    // protected function pagarPlus()
+    // {
+    //     if ($this->plus == 2) { //Si debe 2 plus
+    //         if ($this->saldo >= ($this->ValorBoleto * 2)) { //Y si le alcanza el saldo para pagarlos
+    //             $this->saldo -= ($this->ValorBoleto * 2); //Se le resta el valor
+    //             $this->plus = 0; //Se le devuelve los plus
+    //             $this->pagoplus = 2; //Se almacena que se pagaron 2 plus
+    //         } else if ($this->saldo >= $this->ValorBoleto) { // Si solo alcanza para 1 plus
+    //             $this->saldo -= $this->ValorBoleto; //se le descuenta
+    //             $this->plus = 1; // Se lo devuelve
+    //             $this->pagoplus = 1; // Se indica que se pago un plus
+    //         }
+    //     } else {
+    //         if ($this->plus == 1 && $this->saldo > $this->ValorBoleto) { //si debe 1 plus
+    //             $this->saldo -= $this->ValorBoleto; //Se le descuenta
+    //             $this->plus = 0; //Se le devuelve
+    //             $this->pagoplus = 1; // Se indica que se pago un plus
+    //         }
+    //     }
+    // }
 
     /**
      * Devuelve el saldo que le queda a la tarjeta.
@@ -129,13 +135,20 @@ class Tarjeta implements TarjetaInterface
             $this->UltimaHora = $this->tiempo->time(); //Se guarda la hora de la transaccion
             return true; //Se finaliza la funcion
         }
-        if ($this->plus < 2) { //Si tiene plus disponibles
-            $this->plus++; // Se le resta
-            $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
-            $this->UltimoColectivo = $linea;
-            $this->UltimaHora = $this->tiempo->time(); //Se almacena la hora de la transaccion
-            return true; // Se finaliza
-        }
+
+        try {
+            if((class_uses('Plus').indexOf(searchStr)) > -1){
+                if ($this->plus < 2) { //Si tiene plus disponibles
+                    $this->plus++; // Se le resta
+                    $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
+                    $this->UltimoColectivo = $linea;
+                    $this->UltimaHora = $this->tiempo->time(); //Se almacena la hora de la transaccion
+                    return true; // Se finaliza
+                }
+            }
+        } 
+        catch(exception $e){}
+
         return false; // No fue posible pagar
     }
 
@@ -218,12 +231,12 @@ class Tarjeta implements TarjetaInterface
      * @return int
      *   La cantidad de plus que pago en la ultiima recarga.
      */
-    public function obtenerPagoPlus()
-    {
-        $pagoplusaux = $this->pagoplus; // Se almacena en un auxiliar
-        $this->pagoplus = 0; // se Reinicia
-        return $pagoplusaux; // Se devuelve el auxiliar
-    }
+    // public function obtenerPagoPlus()
+    // {
+    //     $pagoplusaux = $this->pagoplus; // Se almacena en un auxiliar
+    //     $this->pagoplus = 0; // se Reinicia
+    //     return $pagoplusaux; // Se devuelve el auxiliar
+    // }
 
     /**
      * Devuelve el valor completo del boleto.
@@ -270,8 +283,8 @@ class Tarjeta implements TarjetaInterface
      *
      * @return int
      */
-    public function usoPlus()
-    {
-        return $this->plus; // Devuelve si se utilizo un viaje plus
-    }
+    // public function usoPlus()
+    // {
+    //     return $this->plus; // Devuelve si se utilizo un viaje plus
+    // }
 }
