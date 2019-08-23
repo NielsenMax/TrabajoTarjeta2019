@@ -196,25 +196,25 @@ class Tarjeta implements TarjetaInterface
      * @return bool
      *   True si son 60 o false si son 90.
      */
-    protected function dependeHora()
-    {
-        if ($this->tiempo->esFeriado() || date('N', $this->tiempo->time()) == 7){
-            return false;
-        }
-        if (date('N', $this->tiempo->time()) == 6){
-            if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14){
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22){
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
+    // protected function dependeHora()
+    // {
+    //     if ($this->tiempo->esFeriado() || date('N', $this->tiempo->time()) == 7){
+    //         return false;
+    //     }
+    //     if (date('N', $this->tiempo->time()) == 6){
+    //         if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14){
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     } else {
+    //         if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22){
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    // }
 
     /**
      * Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto.
