@@ -5,6 +5,7 @@ namespace TrabajoTarjeta;
 class Tarjeta implements TarjetaInterface
 {
     use Plus;
+    use Transbordo;
 
     protected $saldo = 0;
 
@@ -168,26 +169,26 @@ class Tarjeta implements TarjetaInterface
      * @return float
      *   Si fue posible realizar la carga.
      */
-    protected function puedeTrasbordo($linea, $ValorBoleto)
-    {
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
-            $this->Ultimotrasbordo = 0;
-            return $ValorBoleto;
-        }
-        if ($this->dependeHora()) {
-            if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
-                $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
-            }
-        } else {
-            if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
-                $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
-            }
-        }
-        $this->Ultimotrasbordo = 0;
-        return $ValorBoleto;
-    }
+    // protected function puedeTrasbordo($linea, $ValorBoleto)
+    // {
+    //     if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
+    //         $this->Ultimotrasbordo = 0;
+    //         return $ValorBoleto;
+    //     }
+    //     if ($this->dependeHora()) {
+    //         if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
+    //             $this->Ultimotrasbordo = 1;
+    //             return ($ValorBoleto * 0.33);
+    //         }
+    //     } else {
+    //         if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
+    //             $this->Ultimotrasbordo = 1;
+    //             return ($ValorBoleto * 0.33);
+    //         }
+    //     }
+    //     $this->Ultimotrasbordo = 0;
+    //     return $ValorBoleto;
+    // }
 
     /**
      * Dependiendo de la hora y el dia que sea puede haber un maximo de tiempo de 60 o 90 minutos.
