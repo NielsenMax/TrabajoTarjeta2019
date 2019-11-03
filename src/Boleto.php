@@ -149,34 +149,39 @@ class Boleto implements BoletoInterface
     public function obtenerDescripcion()
     {
         $StringAuxiliar = ""; //definimos una variable auxiliar para poder armarla
-        if ($this->valor == 0.0) { //si pago 0.0
-            if ($this->Tipo == "TrabajoTarjeta\Completo") { //Y la tarjeta es tipo completo, devolvemos que el pago un boleto de tipo completo
-                return "Completo 0.0";
-            } else { //si no
-                if ($this->usoPlus == 1) { //Y si solo uso un plus se muestra "ViajePlus 0.0" o si uso los 2 "UltimoPlus 0.0"
-                    $StringAuxiliar = "ViajePlus 0.0";
-                } else {
-                    $StringAuxiliar = "UltimoPlus 0.0";
-                }
-            }
-        } else { //Si pago algun valor
-            switch ($this->valor) { //dependiendo de lo que pago va a ser diferentes textos
-                case ($this->boletoCompleto / 2):
-                    $StringAuxiliar = "Medio " . ($this->valor);
-                    break;
-                case (($this->boletoCompleto / 2) * 0.33):
-                    $StringAuxiliar = "Trasbordo Medio " . ($this->valor);
-                    break;
-                case ($this->boletoCompleto * 0.33):
-                    $StringAuxiliar = "Trasbordo Normal " . ($this->valor);
-                    break;
-                case ($this->boletoCompleto):
-                    $StringAuxiliar = "Normal " . ($this->valor);
-                    break;
-            }
-        }
-        if ($this->cantplus != 0) { // Si pago algun plus une lo que ya formo en el contruct y lo devuelve
-            return $this->PagoPlus . $StringAuxiliar;
+        // if ($this->valor == 0.0) { //si pago 0.0
+        //     if ($this->Tipo == "TrabajoTarjeta\Completo") { //Y la tarjeta es tipo completo, devolvemos que el pago un boleto de tipo completo
+        //         return "Completo 0.0";
+        //     } else { //si no
+        //         if ($this->usoPlus == 1) { //Y si solo uso un plus se muestra "ViajePlus 0.0" o si uso los 2 "UltimoPlus 0.0"
+        //             $StringAuxiliar = "ViajePlus 0.0";
+        //         } else {
+        //             $StringAuxiliar = "UltimoPlus 0.0";
+        //         }
+        //     }
+        // } else { //Si pago algun valor
+        //     switch ($this->valor) { //dependiendo de lo que pago va a ser diferentes textos
+        //         case ($this->boletoCompleto / 2):
+        //             $StringAuxiliar = "Medio " . ($this->valor);
+        //             break;
+        //         case (($this->boletoCompleto / 2) * 0.33):
+        //             $StringAuxiliar = "Trasbordo Medio " . ($this->valor);
+        //             break;
+        //         case ($this->boletoCompleto * 0.33):
+        //             $StringAuxiliar = "Trasbordo Normal " . ($this->valor);
+        //             break;
+        //         case ($this->boletoCompleto):
+        //             $StringAuxiliar = "Normal " . ($this->valor);
+        //             break;
+        //     }
+        // }
+        // if ($this->cantplus != 0) { // Si pago algun plus une lo que ya formo en el contruct y lo devuelve
+        //     return $this->PagoPlus . $StringAuxiliar;
+        // }
+        if($this->usoPlus == 2){
+            $StringAuxiliar = "Debe 2 plus";
+        }else{
+            $StringAuxiliar = "Saldo: " . $this->obtenerSaldo(); 
         }
         return $StringAuxiliar; // si no solo devuelve lo que pago
     }

@@ -109,7 +109,7 @@ class MedioTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 2.442");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 190.158);
+        $this->assertEquals($boleto2->obtenerDescripcion(), "Saldo: 192.6");
+        $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
     }
 }
