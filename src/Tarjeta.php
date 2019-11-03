@@ -21,7 +21,7 @@ class Tarjeta implements TarjetaInterface
 
     // protected $pagoplus = 0;
 
-    protected $Ultimotrasbordo = 1;
+    // protected $Ultimotrasbordo = 1;
 
     protected $id;
 

@@ -3,7 +3,7 @@
 namespace TrabajoTarjeta;
 
 trait Transbordo{
-
+    protected $Ultimotrasbordo = 1;
     function puedeTrasbordo($linea, $ValorBoleto)
     {
         if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
@@ -13,12 +13,12 @@ trait Transbordo{
         if ($this->dependeHora()) {
             if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
+                return ($ValorBoleto * 0.0);
             }
         } else {
-            if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
+            if (($this->tiempo->time() - $this->UltimaHora) < 7200) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
+                return ($ValorBoleto * 0.0);
             }
         }
         $this->Ultimotrasbordo = 0;

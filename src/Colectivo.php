@@ -1,5 +1,5 @@
 <?php
-
+//*Esta bastante bien
 namespace TrabajoTarjeta;
 
 class Colectivo implements ColectivoInterface
