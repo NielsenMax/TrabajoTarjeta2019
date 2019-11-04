@@ -9,7 +9,7 @@ class Tarjeta implements TarjetaInterface
 
     protected $saldo = 0;
 
-    protected $ValorBoleto = 14.8;
+    protected $ValorBoleto = 32.5;
 
     // protected $plus = 0;
 
@@ -63,11 +63,11 @@ class Tarjeta implements TarjetaInterface
             case 100:
                 $this->saldo += 100;
                 break;
-            case 510.15:
-                $this->saldo += 592.08;
+            case 1119.90:
+                $this->saldo += 1300;
                 break;
-            case 962.59:
-                $this->saldo += 1184.17;
+            case 2114.11:
+                $this->saldo += 2600;
                 break;
             default:
                 //Devuelve false si el monto ingresado no es válido
